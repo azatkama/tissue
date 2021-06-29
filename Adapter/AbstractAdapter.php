@@ -15,7 +15,6 @@ use CL\Tissue\Model\Detection;
 use CL\Tissue\Model\ScanResult;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Process\ProcessBuilder;
 
 abstract class AbstractAdapter implements AdapterInterface
 {
@@ -135,27 +134,6 @@ abstract class AbstractAdapter implements AdapterInterface
         $detection = new Detection($path, $type, $description);
 
         return $detection;
-    }
-
-    /**
-     * Creates a new process builder that your might use to interact with your virus-scanner's executable
-     *
-     * @param array    $arguments An optional array of arguments
-     * @param int|null $timeout   An optional number of seconds for the process' timeout limit
-     *
-     * @return ProcessBuilder A new process builder
-     *
-     * @codeCoverageIgnore
-     */
-    protected function createProcessBuilder(array $arguments = [], $timeout = null)
-    {
-        $pb = new ProcessBuilder($arguments);
-
-        if (null !== $timeout) {
-            $pb->setTimeout($timeout);
-        }
-
-        return $pb;
     }
 
     /**
